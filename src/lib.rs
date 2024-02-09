@@ -1,4 +1,4 @@
-use std::{cell::{Ref, RefCell}, collections::HashMap, rc::Rc};
+use std::{cell::RefCell, collections::HashMap, rc::Rc};
 
 #[derive(Clone)]
 pub enum Direction{
@@ -117,13 +117,14 @@ impl<'a> Transition<'a> {
 }
 
 pub fn run(
-    input: &str,
+    //input: &str,
+    input: &mut Vec<char>,
     start_state: Rc<RefCell<State>>,
     empty_symbol: char
 ) -> Result<bool, String> {
-    let mut chars: Vec<char> = input.chars().collect();
-    chars.insert(0, empty_symbol);
-    chars.push(empty_symbol);
+    // let mut chars: Vec<char> = input.chars().collect();
+    input.insert(0, empty_symbol);
+    input.push(empty_symbol);
 
-    return start_state.borrow().start(&mut chars, empty_symbol);
+    return start_state.borrow().start(input, empty_symbol);
 }
